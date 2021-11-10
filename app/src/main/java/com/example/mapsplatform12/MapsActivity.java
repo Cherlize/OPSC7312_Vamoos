@@ -13,6 +13,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,14 +37,15 @@ public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
+        ActivityCompat.OnRequestPermissionsResultCallback{
 
-    private GoogleMap mMap;
+
     private ActivityMapsBinding binding;
-
     private Marker markerMenlyn;
     private Marker markerBrooklyn;
     private Marker markerArcadia;
+
+    private EditText search;
 
     /**
      * Request code for location permission request.
@@ -57,22 +59,23 @@ public class MapsActivity extends FragmentActivity implements
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
      */
     private boolean permissionDenied = false;
-    private EditText edtSearch1;
     private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        edtSearch1 = findViewById(R.id.edtSearch);
+
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        search = (EditText) findViewById(R.id.searchText);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-      //  init();
+
+        init();
     }
 
     /**
@@ -91,12 +94,32 @@ public class MapsActivity extends FragmentActivity implements
         map.setOnMyLocationClickListener(this);
         enableMyLocation();
 
-        LatLng pretoria = new LatLng(-25.731340, 28.218370);
-        LatLng menlyn = new LatLng(-25.7819, 28.2768);
-        LatLng brooklyn = new LatLng(-25.7646, 28.2393);
-        LatLng arcadia = new LatLng(-25.7453, 28.2030);
 
-        // Move the camera instantly to Sydney with a zoom of 15.
+
+
+        LatLng pretoria = new LatLng(-25.7,28.2);
+        LatLng menlyn = new LatLng(-25.7819,28.2768);
+        LatLng brooklyn = new LatLng(-25.7646,28.2393);
+        LatLng arcadia = new LatLng(-25.7453,28.2030);
+
+        markerMenlyn = map.addMarker(new MarkerOptions()
+                .position(menlyn)
+                .title("Menlyn Mang"));
+        markerMenlyn.setTag(0);
+
+        markerBrooklyn = map.addMarker(new MarkerOptions()
+                .position(brooklyn)
+                .title("Brooklyn Mang"));
+        markerBrooklyn.setTag(0);
+
+        markerArcadia = map.addMarker(new MarkerOptions()
+                .position(arcadia)
+                .title("Arcadia Mang"));
+        markerArcadia.setTag(0);
+
+        //LatLng mountainView = new LatLng(37.4, -122.1);
+
+// Move the camera instantly to Sydney with a zoom of 15.
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(pretoria, 15));
 
 // Zoom in, animating the camera.
@@ -108,72 +131,13 @@ public class MapsActivity extends FragmentActivity implements
 // Construct a CameraPosition focusing on Mountain View and animate the camera to that position.
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(menlyn)      // Sets the center of the map to Mountain View
-                .zoom(17)                   // Sets the zoom
+                .zoom(13)                   // Sets the zoom
                 .bearing(90)                // Sets the orientation of the camera to east
                 .tilt(30)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        // Add some markers to the map, and add a data object to each marker.
-        markerMenlyn = map.addMarker(new MarkerOptions()
-                .position(menlyn)
-                .title("Perth"));
-        markerMenlyn.setTag(0);
 
-        markerBrooklyn = map.addMarker(new MarkerOptions()
-                .position(brooklyn)
-                .title("Sydney"));
-        markerBrooklyn.setTag(0);
-
-        markerArcadia = map.addMarker(new MarkerOptions()
-                .position(arcadia)
-                .title("Brisbane"));
-        markerArcadia.setTag(0);
-
-        // Set a listener for marker click.
-        map.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
     }
-    private void geolocate(){
-
-        String searching = edtSearch1.getText().toString();
-        Geocoder geocoder = new Geocoder(MapsActivity.this);
-        List<Address>list = new ArrayList<>();
-        try {
-           list= geocoder.getFromLocationName(searching,1);
-        }
-        catch (IOException e){
-            Log.e("TAG", "geolocate: IOException: " + e.getMessage());
-        }
-        if(list.size()>0){
-            Address address = list.get(0);
-            Toast.makeText(this,address.toString(),Toast.LENGTH_SHORT).show();
-            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),17,address.getAddressLine(0));
-        }
-    }
-
-    private void init()
-    {
-        edtSearch1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int i, KeyEvent event) {
-                if (i == EditorInfo.IME_ACTION_SEARCH ||
-                i == EditorInfo.IME_ACTION_DONE ||
-                event.getAction()==KeyEvent.ACTION_DOWN ||
-                        event.getAction()==KeyEvent.KEYCODE_ENTER)
-                {
-                    geolocate();
-                }
-                return false;
-            }
-        });
-    }
-    private void moveCamera(LatLng latLng,float zoom, String title){
-        zoom = 17;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
-        MarkerOptions options= new MarkerOptions().position(latLng).title(title);
-        mMap.addMarker(options);
-    }
-
-
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
@@ -210,7 +174,88 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        return false;
+    public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults )
+    {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE){
+            return;
+        }
+        if (PermissionUtils.isPermissionGranted(permissions,grantResults,Manifest.permission.ACCESS_FINE_LOCATION)){
+            enableMyLocation();
+        }
+        else {
+            permissionDenied = true;
+        }
     }
+    @Override
+    protected  void onResumeFragments(){
+        super.onResumeFragments();
+        if (permissionDenied){
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+
+    private void showMissingPermissionError(){
+        PermissionUtils.PermissionDeniedDialog.newInstance(true).show(getSupportFragmentManager(),"dialog");
+    }
+
+    private void init()
+    {
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH ||
+                        i == EditorInfo.IME_ACTION_DONE ||
+                        keyEvent.getAction()==KeyEvent.ACTION_DOWN ||
+                        keyEvent.getAction()==KeyEvent.KEYCODE_ENTER)
+                {
+                    geolocate();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void geolocate()
+    {
+        String searching = search.getText().toString();
+        Geocoder geocoder = new Geocoder(MapsActivity.this);
+        List<Address> list = new ArrayList<>();
+        Toast.makeText(MapsActivity.this, "yes", Toast.LENGTH_LONG).show();
+        try
+        {
+            list = geocoder.getFromLocationName(searching,1);
+        }
+        catch (IOException e)
+        {
+            Log.e("TAG","geolocate :IOException: "+e.getMessage());
+        }
+        if (list.size() > 0)
+        {
+            Address address = list.get(0);
+            Toast.makeText(this, address.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void  hideSoftKeyboard(){
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private void MoveCamera(LatLng latLng, float zoom, String name)
+    {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)      // Sets the center of the map to Mountain View
+                .zoom(zoom)                   // Sets the zoom
+                .bearing(90)                // Sets the orientation of the camera to east
+                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+                .build();                   // Creates a CameraPosition from the builder
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        Marker marker = map.addMarker(new MarkerOptions()
+                .position(latLng)
+                .title(name));
+        marker.setTag(0);
+    }
+
 }
