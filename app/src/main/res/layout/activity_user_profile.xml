@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg"
+    tools:context=".UserProfile">
+
+    <TextView
+        android:id="@+id/txtUserProfileTop"
+        android:layout_width="370dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="#4FB7C1"
+        android:backgroundTint="#B24FB7C1"
+        android:editable="false"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center|center_horizontal"
+        android:text="User Profile"
+        android:textColor="#000000"
+        android:textColorHighlight="#BC0245A3"
+        android:textColorLink="#0245A3"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/toggleSystem"
+        android:layout_width="354dp"
+        android:layout_height="34dp"
+        android:background="#71D7E1"
+        android:backgroundTint="#BDF1F6"
+        android:backgroundTintMode="screen"
+        android:buttonTint="#0245A3"
+        android:checked="true"
+        android:text="Use metric system"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="277dp" />
+
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="143dp"
+        android:layout_height="31dp"
+        android:gravity="center"
+        android:text="Username"
+        android:textColor="#000000"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="184dp"
+        android:layout_height="152dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/profilepicture"
+        tools:layout_editor_absoluteY="103dp" />
+
+    <EditText
+        android:id="@+id/edtPasswordProfile"
+        android:layout_width="141dp"
+        android:layout_height="32dp"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="223dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
