@@ -224,7 +224,6 @@ public class MapsActivity extends FragmentActivity implements
         String searching = search.getText().toString();
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address> list = new ArrayList<>();
-        Toast.makeText(MapsActivity.this, "yes", Toast.LENGTH_LONG).show();
         try
         {
             list = geocoder.getFromLocationName(searching,1);
