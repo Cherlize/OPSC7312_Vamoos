@@ -29,7 +29,7 @@ import com.example.mapsplatform12.ui.login.LoginViewModel;
 import com.example.mapsplatform12.ui.login.LoginViewModelFactory;
 import com.example.mapsplatform12.databinding.ActivityLoginScreenBinding;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginScreen extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginScreenBinding binding;
@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
+        final EditText usernameEditText = findViewById(R.id.edtUsername);
+        final EditText passwordEditText = findViewById(R.id.edtPassword);
         final Button loginButton = findViewById(R.id.btnLogin);
         final ProgressBar loadingProgressBar = binding.loading;
 

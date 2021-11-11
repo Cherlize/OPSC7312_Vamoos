@@ -38,6 +38,8 @@ public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
 
+
+
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
 
