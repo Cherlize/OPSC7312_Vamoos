@@ -3,8 +3,15 @@
 
     <item
         android:id="@+id/btn_to_profile"
+        android:icon="@drawable/gear"
         android:title="User Profile"/>
     <item
+        android:id="@+id/btn_fav_landmarks"
+        android:icon="@drawable/star"
+        android:title="Favourite Landmarks"/>
+    <item
         android:id="@+id/btn_logout"
+        android:icon="@drawable/door"
         android:title="Log Out"/>
+
 </menu>

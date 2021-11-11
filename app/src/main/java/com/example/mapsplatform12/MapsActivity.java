@@ -1,21 +1,27 @@
 package com.example.mapsplatform12;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.app.Notification;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,14 +43,15 @@ public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
+        ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
-
+    //private DrawerLayout drawer;
     private Marker markerMenlyn;
     private Marker markerBrooklyn;
     private Marker markerArcadia;
+    private Button goToProfile;
 
     /**
      * Request code for location permission request.
@@ -68,13 +75,35 @@ public class MapsActivity extends FragmentActivity implements
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //goToProfile stuff
+        goToProfile = (Button) findViewById(R.id.go_To_Profile);
+        goToProfile.setOnClickListener(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
       //  init();
-    }
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawer.addDrawerListener(toggle);
+
+        toggle.syncState();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new Notification.MessagingStyle.Message()).commit();
+
+            navigationView.setCheckedItem(R.id.nav_message);
+    }*/
 
 
     /**
@@ -86,6 +115,7 @@ public class MapsActivity extends FragmentActivity implements
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+}
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -140,7 +170,7 @@ public class MapsActivity extends FragmentActivity implements
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address>list = new ArrayList<>();
         try {
-           list= geocoder.getFromLocationName(searching,1);
+            list= geocoder.getFromLocationName(searching,1);
         }
         catch (IOException e){
             Log.e("TAG", "geolocate: IOException: " + e.getMessage());
@@ -158,8 +188,8 @@ public class MapsActivity extends FragmentActivity implements
             @Override
             public boolean onEditorAction(TextView v, int i, KeyEvent event) {
                 if (i == EditorInfo.IME_ACTION_SEARCH ||
-                i == EditorInfo.IME_ACTION_DONE ||
-                event.getAction()==KeyEvent.ACTION_DOWN ||
+                        i == EditorInfo.IME_ACTION_DONE ||
+                        event.getAction()==KeyEvent.ACTION_DOWN ||
                         event.getAction()==KeyEvent.KEYCODE_ENTER)
                 {
                     geolocate();
@@ -173,26 +203,6 @@ public class MapsActivity extends FragmentActivity implements
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
         MarkerOptions options= new MarkerOptions().position(latLng).title(title);
         mMap.addMarker(options);
-    }
-
-
-
-    @Override
-    public void onMyLocationClick(@NonNull Location location) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
-        return false;
     }
 
     /**
@@ -210,9 +220,49 @@ public class MapsActivity extends FragmentActivity implements
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         }
     }
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
 
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
         return false;
     }
+
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(MapsActivity.this, UserProfile.class));
+    }
 }
+    /*@Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btn_to_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new burger_profile()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }}*/

@@ -19,16 +19,15 @@
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
-        android:enabled="false"
+        android:background="#BE8FBAF3"
         android:text="Sign In"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPassword"
-        app:layout_constraintVertical_bias="0.115"
-        android:textColor="@color/black"
-        android:background="#BE8FBAF3"/>
+        app:layout_constraintVertical_bias="0.115" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -36,16 +35,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginBottom="64dp"
-        android:enabled="false"
+        android:background="#BE8FBAF3"
         android:text="Register"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        app:layout_constraintVertical_bias="0.22"
-        android:textColor="@color/black"
-        android:background="#BE8FBAF3"/>
+        app:layout_constraintVertical_bias="0.22" />
 
     <EditText
         android:id="@+id/edtPassword"

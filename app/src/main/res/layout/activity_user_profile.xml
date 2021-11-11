@@ -9,10 +9,10 @@
 
     <TextView
         android:id="@+id/txtUserProfileTop"
-        android:layout_width="370dp"
-        android:layout_height="54dp"
+        android:layout_width="317dp"
+        android:layout_height="53dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
         android:background="#4FB7C1"
         android:backgroundTint="#B24FB7C1"
@@ -32,8 +32,8 @@
 
     <Switch
         android:id="@+id/toggleSystem"
-        android:layout_width="354dp"
-        android:layout_height="34dp"
+        android:layout_width="309dp"
+        android:layout_height="48dp"
         android:background="#71D7E1"
         android:backgroundTint="#BDF1F6"
         android:backgroundTintMode="screen"
@@ -41,10 +41,12 @@
         android:checked="true"
         android:text="Use metric system"
         android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="277dp" />
+        app:layout_constraintTop_toBottomOf="@+id/profilePic"
+        app:layout_constraintVertical_bias="0.091" />
 
     <TextView
         android:id="@+id/txtUsername"
@@ -53,26 +55,34 @@
         android:gravity="center"
         android:text="Username"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="180dp" />
+        app:layout_constraintBottom_toTopOf="@+id/toggleSystem"
+        app:layout_constraintEnd_toStartOf="@+id/profilePic"
+        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserProfileTop"
+        app:layout_constraintVertical_bias="0.63" />
 
     <ImageView
         android:id="@+id/profilePic"
-        android:layout_width="184dp"
-        android:layout_height="152dp"
-        android:layout_marginEnd="12dp"
+        android:layout_width="155dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/profilepicture"
-        tools:layout_editor_absoluteY="103dp" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUserProfileTop"
+        app:srcCompat="@drawable/profilepicture" />
 
-    <EditText
-        android:id="@+id/edtPasswordProfile"
-        android:layout_width="141dp"
-        android:layout_height="32dp"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="223dp" />
+    <Button
+        android:id="@+id/btnBacktomap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:background="#0245A3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleSystem"
+        app:layout_constraintVertical_bias="0.044" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
