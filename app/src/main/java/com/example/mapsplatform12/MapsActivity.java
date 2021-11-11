@@ -1,6 +1,7 @@
 package com.example.mapsplatform12;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -38,8 +39,6 @@ public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
 
-
-
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
 
@@ -76,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements
         mapFragment.getMapAsync(this);
       //  init();
     }
+
 
     /**
      * Manipulates the map once available.
