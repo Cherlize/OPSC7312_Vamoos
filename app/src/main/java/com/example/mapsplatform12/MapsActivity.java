@@ -17,7 +17,11 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+<<<<<<< HEAD
 import android.view.View;
+=======
+import android.view.WindowManager;
+>>>>>>> e42a63dcdc94eb30e67b1b4b9eb5b1a8cf545584
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,15 +47,24 @@ public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
+<<<<<<< HEAD
         ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     //private DrawerLayout drawer;
+=======
+        ActivityCompat.OnRequestPermissionsResultCallback{
+
+
+    private ActivityMapsBinding binding;
+>>>>>>> e42a63dcdc94eb30e67b1b4b9eb5b1a8cf545584
     private Marker markerMenlyn;
     private Marker markerBrooklyn;
     private Marker markerArcadia;
     private Button goToProfile;
+
+    private EditText search;
 
     /**
      * Request code for location permission request.
@@ -65,24 +78,28 @@ public class MapsActivity extends FragmentActivity implements
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
      */
     private boolean permissionDenied = false;
-    private EditText edtSearch1;
     private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        edtSearch1 = findViewById(R.id.edtSearch);
+
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+<<<<<<< HEAD
         //goToProfile stuff
         goToProfile = (Button) findViewById(R.id.go_To_Profile);
         goToProfile.setOnClickListener(this);
+=======
+        search = (EditText) findViewById(R.id.searchText);
+>>>>>>> e42a63dcdc94eb30e67b1b4b9eb5b1a8cf545584
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+<<<<<<< HEAD
       //  init();
         /*Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
@@ -104,6 +121,11 @@ public class MapsActivity extends FragmentActivity implements
 
             navigationView.setCheckedItem(R.id.nav_message);
     }*/
+=======
+
+        init();
+    }
+>>>>>>> e42a63dcdc94eb30e67b1b4b9eb5b1a8cf545584
 
 
     /**
@@ -123,49 +145,32 @@ public class MapsActivity extends FragmentActivity implements
         map.setOnMyLocationClickListener(this);
         enableMyLocation();
 
-        LatLng pretoria = new LatLng(-25.731340, 28.218370);
-        LatLng menlyn = new LatLng(-25.7819, 28.2768);
-        LatLng brooklyn = new LatLng(-25.7646, 28.2393);
-        LatLng arcadia = new LatLng(-25.7453, 28.2030);
 
-        // Move the camera instantly to Sydney with a zoom of 15.
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(pretoria, 15));
 
-// Zoom in, animating the camera.
-        map.animateCamera(CameraUpdateFactory.zoomIn());
 
-// Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        LatLng pretoria = new LatLng(-25.7,28.2);
+        LatLng menlyn = new LatLng(-25.7819,28.2768);
+        LatLng brooklyn = new LatLng(-25.7646,28.2393);
+        LatLng arcadia = new LatLng(-25.7453,28.2030);
 
-// Construct a CameraPosition focusing on Mountain View and animate the camera to that position.
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(menlyn)      // Sets the center of the map to Mountain View
-                .zoom(17)                   // Sets the zoom
-                .bearing(90)                // Sets the orientation of the camera to east
-                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
-                .build();                   // Creates a CameraPosition from the builder
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        // Add some markers to the map, and add a data object to each marker.
         markerMenlyn = map.addMarker(new MarkerOptions()
                 .position(menlyn)
-                .title("Perth"));
+                .title("Menlyn Mang"));
         markerMenlyn.setTag(0);
 
         markerBrooklyn = map.addMarker(new MarkerOptions()
                 .position(brooklyn)
-                .title("Sydney"));
+                .title("Brooklyn Mang"));
         markerBrooklyn.setTag(0);
 
         markerArcadia = map.addMarker(new MarkerOptions()
                 .position(arcadia)
-                .title("Brisbane"));
+                .title("Arcadia Mang"));
         markerArcadia.setTag(0);
 
-        // Set a listener for marker click.
-        map.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
-    }
-    private void geolocate(){
+        //LatLng mountainView = new LatLng(37.4, -122.1);
 
+<<<<<<< HEAD
         String searching = edtSearch1.getText().toString();
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address>list = new ArrayList<>();
@@ -220,6 +225,28 @@ public class MapsActivity extends FragmentActivity implements
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         }
     }
+=======
+// Move the camera instantly to Sydney with a zoom of 15.
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(pretoria, 15));
+
+// Zoom in, animating the camera.
+        map.animateCamera(CameraUpdateFactory.zoomIn());
+
+// Zoom out to zoom level 10, animating with a duration of 2 seconds.
+        map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+
+// Construct a CameraPosition focusing on Mountain View and animate the camera to that position.
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(menlyn)      // Sets the center of the map to Mountain View
+                .zoom(13)                   // Sets the zoom
+                .bearing(90)                // Sets the orientation of the camera to east
+                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+                .build();                   // Creates a CameraPosition from the builder
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+
+>>>>>>> e42a63dcdc94eb30e67b1b4b9eb5b1a8cf545584
     @Override
     public void onMyLocationClick(@NonNull Location location) {
 
@@ -238,10 +265,70 @@ public class MapsActivity extends FragmentActivity implements
         return false;
     }
     @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        return false;
+    public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults )
+    {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE){
+            return;
+        }
+        if (PermissionUtils.isPermissionGranted(permissions,grantResults,Manifest.permission.ACCESS_FINE_LOCATION)){
+            enableMyLocation();
+        }
+        else {
+            permissionDenied = true;
+        }
+    }
+    @Override
+    protected  void onResumeFragments(){
+        super.onResumeFragments();
+        if (permissionDenied){
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
     }
 
+    private void showMissingPermissionError(){
+        PermissionUtils.PermissionDeniedDialog.newInstance(true).show(getSupportFragmentManager(),"dialog");
+    }
+
+    private void init()
+    {
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH ||
+                        i == EditorInfo.IME_ACTION_DONE ||
+                        keyEvent.getAction()==KeyEvent.ACTION_DOWN ||
+                        keyEvent.getAction()==KeyEvent.KEYCODE_ENTER)
+                {
+                    geolocate();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void geolocate()
+    {
+        String searching = search.getText().toString();
+        Geocoder geocoder = new Geocoder(MapsActivity.this);
+        List<Address> list = new ArrayList<>();
+        try
+        {
+            list = geocoder.getFromLocationName(searching,1);
+        }
+        catch (IOException e)
+        {
+            Log.e("TAG","geolocate :IOException: "+e.getMessage());
+        }
+        if (list.size() > 0)
+        {
+            Address address = list.get(0);
+            Toast.makeText(this, address.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+<<<<<<< HEAD
     @Override
     public void onClick(View v) {
         startActivity(new Intent(MapsActivity.this, UserProfile.class));
@@ -266,3 +353,26 @@ public class MapsActivity extends FragmentActivity implements
             super.onBackPressed();
         }
     }}*/
+=======
+    private void  hideSoftKeyboard(){
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private void MoveCamera(LatLng latLng, float zoom, String name)
+    {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)      // Sets the center of the map to Mountain View
+                .zoom(zoom)                   // Sets the zoom
+                .bearing(90)                // Sets the orientation of the camera to east
+                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+                .build();                   // Creates a CameraPosition from the builder
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        Marker marker = map.addMarker(new MarkerOptions()
+                .position(latLng)
+                .title(name));
+        marker.setTag(0);
+    }
+
+}
+>>>>>>> e42a63dcdc94eb30e67b1b4b9eb5b1a8cf545584
